@@ -1,0 +1,17 @@
+<% include _header %>
+
+<div class="jumbotron">
+<h3>Welcome to the Voting-App</h3>
+
+<% polls.forEach(function(poll) { %>
+  <div class="panel panel-default">
+    <div class="panel-heading text-center">
+      <a href="/poll/<%= poll._id%>">
+        <%= poll.title %>
+      </a>
+    </div>
+  </div>
+  <% }) %>
+</div>
+
+<% include _footer %>

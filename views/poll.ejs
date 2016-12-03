@@ -1,0 +1,18 @@
+<% include _header %>
+
+<div class="jumbotron">
+<p class=lead><%= poll.title %></p>
+<h4>I'd like to vote for... :</h4>
+
+  <form action="/poll/vote/<%=poll._id%>" method="post" enctype="application/x-www-form-urlencoded">
+    <select class="form-control selectpicker" name="select">
+      <% poll.options.forEach(function (option) { %>
+        <option val="0"><%= option.val %></option>
+          <% }) %>
+    </select>
+
+    <br>
+    <input type="submit" value="Vote" class="btn btn-primary btn-block">
+  </form>
+</div>
+<% include _footer %>

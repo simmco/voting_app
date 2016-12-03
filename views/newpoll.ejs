@@ -1,0 +1,14 @@
+<% include _header %>
+
+<h1>New Poll</h1>
+
+<form action="/newpoll" method="post">
+  <input name="title" type="text" class="form-control" placeholder="Poll" required autofocus>
+  <br>
+  <h4>For each Option use a new line </h4>
+  <textarea class="form-control" name="option" rows="5" id="TITLE" required></textarea>
+  <br>
+  <input type="submit" value="Create" class="btn btn-primary btn-block">
+</form>
+
+<% include _footer %>
