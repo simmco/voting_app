@@ -10,8 +10,12 @@
         <option val="0"><%= option.val %></option>
           <% }) %>
     </select>
-
     <br>
+    <% if (currentUser) { %>
+    <p class="lead">Add new answer:</p>
+    <input name="newpoll" type="text" class="form-control" placeholder="New Poll">
+    <br>
+    <% } %>
     <input type="submit" value="Vote" class="btn btn-primary btn-block">
   </form>
 </div>

@@ -109,32 +109,47 @@ router.get('/poll/:id', function(req, res) {
     if(!poll) {
       res.status(404).send();
     }
-    res.render('poll',{poll: poll});
+    res.render('poll',{poll: poll} );
   }).catch((e) => res.status(400).send());
 });
 
 router.post('/poll/vote/:id', function(req, res ,next) {
     var id = req.params.id;
     var value = req.body.select;
-    console.log(value);
-
+    var newValue = req.body.newpoll;
+    console.log(req.body);
+    console.log(id);
+    if(value === "Choose one...") {
+      req.flash("info", "Please choose one option!");
+      res.redirect(`/poll/${id}`);
+    };
 
     Poll.findById(id, function (err, doc) {
       if (err) {return next(err); }
 
-      var placeholder;
-      //data structe lag..
-      for(i=0; i < doc.options.length; i++) {
-        console.log(doc.options[i]);
-        if(doc.options[i].val === value) {
-            placeholder = doc.options[i];
+      if(value !== "Choose one...") {
+        console.log('Im in value');
+        var placeholder;
+        //data structe lag..
+        for(i=0; i < doc.options.length; i++) {
+          console.log(doc.options[i]);
+          if(doc.options[i].val === value) {
+              placeholder = doc.options[i];
+          }
         }
-      }
-      console.log(placeholder);
-      console.log(doc.options[0].num);
-      placeholder.num = placeholder.num + 1 ;
-      doc.save().then(res.redirect(`/poll/${id}`));
+        console.log(placeholder);
+        console.log(doc.options[0].num);
+        placeholder.num = placeholder.num + 1 ;
+        doc.save().then(res.redirect(`/poll/${id}`));
+
+    } else if(newValue) {
+        console.log('Im in newpoll');
+        doc.options.push({val: newValue, num: 1});
+        console.log(doc);
+        res.send(doc);
+    }
     });
+
 
 });
 
@@ -146,13 +161,15 @@ router.post('/newpoll', ensureAuthenticated, function(req, res, next) {
   var title = req.body.title;
   var options = req.body.option.split("\r\n");
 
-  var arr = [];
+  var arr = [{val: 'Choose one...', num: 0}];
   var len = options.length;
   for (var i = 0; i < len; i++) {
+      if(options[i] !== "") {
       arr.push({
           val: options[i],
           num: 0,
       });
+    }
   };
 
   var newPoll = new Poll({
