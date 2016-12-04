@@ -78,15 +78,22 @@ router.post("/signup", function(req, res, next) {
 }));
 
 router.get("/users/:username", function(req, res, next) {
-  User.findOne({ username: req.params.username }, function(err, user) {
-    if (err) { return next(err); }
-    if (!user) { return next(404); }
-    res.render("profile", { user: user });
-  });
+  // User.findOne({ username: req.params.username }, function(err, user) {
+  //   if (err) { return next(err); }
+  //   if (!user) { return next(404); }
+  //   res.render("profile", { user: user });
+  // });
+
 });
 
 router.get("/edit", ensureAuthenticated, function(req, res) {
-  res.render("edit");
+  Poll.find({"creator": res.locals.currentUser._id})
+    .populate('creator')
+    .exec(function(err, poll) {
+        if(err) return err;
+        res.json(poll);
+    });
+  //res.render("edit");
 });
 
 router.post("/edit", ensureAuthenticated, function(req, res, next) {
@@ -121,7 +128,7 @@ router.post('/poll/vote/:id', function(req, res ,next) {
     console.log(id);
     if(value === "Choose one...") {
       req.flash("info", "Please choose one option!");
-      res.redirect(`/poll/${id}`);
+      return res.redirect(`/poll/${id}`);
     };
 
     Poll.findById(id, function (err, doc) {
@@ -160,8 +167,9 @@ router.get('/newpoll', function (req, res) {
 router.post('/newpoll', ensureAuthenticated, function(req, res, next) {
   var title = req.body.title;
   var options = req.body.option.split("\r\n");
+  var creator = res.locals.currentUser._id
 
-  var arr = [{val: 'Choose one...', num: 0}];
+  var arr = [];
   var len = options.length;
   for (var i = 0; i < len; i++) {
       if(options[i] !== "") {
@@ -174,7 +182,8 @@ router.post('/newpoll', ensureAuthenticated, function(req, res, next) {
 
   var newPoll = new Poll({
       title: title,
-      options: arr
+      options: arr,
+      creator: creator
     });
     newPoll.save().then(res.redirect('/'));
 
