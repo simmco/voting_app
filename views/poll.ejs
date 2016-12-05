@@ -3,7 +3,7 @@
 <div class="jumbotron">
 <p class=lead><%= poll.title %></p>
 <div class="row">
-  <div class="col-md-5">
+  <div class="col-md-4">
     <h4>I'd like to vote for... :</h4>
 
       <form action="/poll/vote/<%=poll._id%>" method="post" enctype="application/x-www-form-urlencoded">
@@ -22,40 +22,49 @@
         <input type="submit" value="Vote" class="btn btn-primary btn-block">
       </form>
     </div>
-    <div class="col-md-7">
-      <canvas id="myChart" width="400" height="400"></canvas>
+    <div class="col-md-8" style="width:500px">
+      <canvas class="text-center" id="myChart" width="400" height="400"></canvas>
     </div>
   </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.min.js"></script>
 <script>
+
 var ctx = document.getElementById("myChart");
 var myChart = new Chart(ctx, {
-  type: 'pie',
+  type: 'doughnut',
   data: {
-      labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-      datasets: [{
-          label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
-          backgroundColor: [
-              'rgba(255, 99, 132, 0.2)',
-              'rgba(54, 162, 235, 0.2)',
-              'rgba(255, 206, 86, 0.2)',
-              'rgba(75, 192, 192, 0.2)',
-              'rgba(153, 102, 255, 0.2)',
-              'rgba(255, 159, 64, 0.2)'
-          ],
-          borderColor: [
-              'rgba(255,99,132,1)',
-              'rgba(54, 162, 235, 1)',
-              'rgba(255, 206, 86, 1)',
-              'rgba(75, 192, 192, 1)',
-              'rgba(153, 102, 255, 1)',
-              'rgba(255, 159, 64, 1)'
-          ],
-          borderWidth: 1
-      }]
+
+      labels: <%-data%>,
+      datasets: [
+          {
+              data: [<%= label %>],
+              backgroundColor: [
+                  "#FF6384",
+                  "#36A2EB",
+                  "#FFCE56",
+                  "#5C3475",
+                  "#00384D",
+                  "#2F7A2F",
+                  "#DB5E02",
+                  "#E6D086",
+                  "#BC5786"
+
+              ],
+              hoverBackgroundColor: [
+                  "#FF6384",
+                  "#36A2EB",
+                  "#FFCE56",
+                  "#5C3475",
+                  "#00384D",
+                  "#2F7A2F",
+                  "#DB5E02",
+                  "#E6D086",
+                  "#BC5786"
+              ]
+          }]
   },
 });
+
 </script>
 <% include _footer %>

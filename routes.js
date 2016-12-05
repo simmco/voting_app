@@ -87,13 +87,7 @@ router.get("/users/:username", function(req, res, next) {
 });
 
 router.get("/edit", ensureAuthenticated, function(req, res) {
-  Poll.find({"creator": res.locals.currentUser._id})
-    .populate('creator')
-    .exec(function(err, poll) {
-        if(err) return err;
-        res.json(poll);
-    });
-  //res.render("edit");
+  res.render("edit");
 });
 
 router.post("/edit", ensureAuthenticated, function(req, res, next) {
@@ -109,6 +103,18 @@ router.post("/edit", ensureAuthenticated, function(req, res, next) {
   });
 });
 
+router.get("/mypoll", ensureAuthenticated, function(req, res) {
+  Poll.find({"creator": res.locals.currentUser._id})
+    .populate('creator')
+    .sort({ createdAt: "descending" })
+    .exec(function(err, polls) {
+      if (err) { return next(err); }
+      res.render("index", { polls: polls });
+    });
+  //res.render("edit");
+
+});
+
 router.get('/poll/:id', function(req, res) {
   var id = req.params.id;
 
@@ -116,7 +122,15 @@ router.get('/poll/:id', function(req, res) {
     if(!poll) {
       res.status(404).send();
     }
-    res.render('poll',{poll: poll} );
+    var data = [];
+    var label = [];
+    poll.options.forEach((option) => {
+      data.push(option.val);
+      label.push(option.num);
+    });
+    console.log(data);
+    console.log(label);
+    res.render('poll',{poll: poll, data: JSON.stringify(data), label: label} );
   }).catch((e) => res.status(400).send());
 });
 
@@ -126,7 +140,7 @@ router.post('/poll/vote/:id', function(req, res ,next) {
     var newValue = req.body.newpoll;
     console.log(req.body);
     console.log(id);
-    if(value === "Choose one...") {
+    if(value === "Choose one..." && newValue === "") {
       req.flash("info", "Please choose one option!");
       return res.redirect(`/poll/${id}`);
     };
@@ -153,7 +167,7 @@ router.post('/poll/vote/:id', function(req, res ,next) {
         console.log('Im in newpoll');
         doc.options.push({val: newValue, num: 1});
         console.log(doc);
-        res.send(doc);
+        doc.save().then(res.redirect(`/poll/${id}`));
     }
     });
 
@@ -185,7 +199,7 @@ router.post('/newpoll', ensureAuthenticated, function(req, res, next) {
       options: arr,
       creator: creator
     });
-    newPoll.save().then(res.redirect('/'));
+    newPoll.save().then((poll) => res.redirect(`/poll/${poll._id}`));
 
 });
 
