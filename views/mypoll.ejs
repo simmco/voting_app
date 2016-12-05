@@ -5,20 +5,23 @@
 
 <div class="row">
 <% polls.forEach(function(poll) { %>
-  <!-- <div class="col-md-6"> -->
+
   <div class="panel panel-default">
-    <div class="panel-heading text-center">
+    <div class="panel-heading">
+      <div class="text-center">
       <a href="/poll/<%= poll._id%>">
         <%= poll.title %>
       </a>
     </div>
-    <!-- <div class="panel-body">
-
-    </div> -->
+    <div class="text-right">
+    <form action="/mypoll/delete/<%=poll._id%>" method="post">
+        <input name="test"type="submit" class="btn btn-danger btn-mini" value="Delete">
+    </form>
+  </div>
     </div>
-  <!-- </div> col-md-6 -->
+</div>
   <% }) %>
 </div>
 </div>
 
-<% include _footer%>
+<% include _footer %>

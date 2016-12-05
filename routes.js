@@ -109,10 +109,19 @@ router.get("/mypoll", ensureAuthenticated, function(req, res) {
     .sort({ createdAt: "descending" })
     .exec(function(err, polls) {
       if (err) { return next(err); }
-      res.render("index", { polls: polls });
+      res.render("mypoll", { polls: polls });
     });
   //res.render("edit");
 
+});
+
+router.post("/mypoll/delete/:id", ensureAuthenticated, function(req, res, next) {
+      var id = req.params.id;
+      Poll.findById(id)
+        .remove()
+        .exec();
+      req.flash("info", "Delete successful!");
+      res.redirect('/mypoll');
 });
 
 router.get('/poll/:id', function(req, res) {

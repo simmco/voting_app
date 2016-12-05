@@ -27,44 +27,5 @@
     </div>
   </div>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.min.js"></script>
-<script>
 
-var ctx = document.getElementById("myChart");
-var myChart = new Chart(ctx, {
-  type: 'doughnut',
-  data: {
-
-      labels: <%-data%>,
-      datasets: [
-          {
-              data: [<%= label %>],
-              backgroundColor: [
-                  "#FF6384",
-                  "#36A2EB",
-                  "#FFCE56",
-                  "#5C3475",
-                  "#00384D",
-                  "#2F7A2F",
-                  "#DB5E02",
-                  "#E6D086",
-                  "#BC5786"
-
-              ],
-              hoverBackgroundColor: [
-                  "#FF6384",
-                  "#36A2EB",
-                  "#FFCE56",
-                  "#5C3475",
-                  "#00384D",
-                  "#2F7A2F",
-                  "#DB5E02",
-                  "#E6D086",
-                  "#BC5786"
-              ]
-          }]
-  },
-});
-
-</script>
-<% include _footer %>
+<% include _footer_chart %>
