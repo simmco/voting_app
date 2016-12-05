@@ -12,7 +12,8 @@ var routes = require("./routes");
 
 var app = express();
 mongoose.Promise = global.Promise;
-mongoose.connect("mongodb://localhost:27017/vote");
+mongoose.connect(process.env.MONGODB_URI);
+// "mongodb://localhost:27017/vote"
 setUpPassport();
 
 app.set("port", process.env.PORT || 3000);
