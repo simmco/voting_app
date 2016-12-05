@@ -3,7 +3,7 @@
 <div class="jumbotron">
 <p class=lead><%= poll.title %></p>
 <div class="row">
-  <div class="col-md-4">
+  <div id="vote" class="col-md-4">
     <h4>I'd like to vote for... :</h4>
 
       <form action="/poll/vote/<%=poll._id%>" method="post" enctype="application/x-www-form-urlencoded">
@@ -19,11 +19,15 @@
         <input name="newpoll" type="text" class="form-control" placeholder="New Poll">
         <br>
         <% } %>
-        <input type="submit" value="Vote" class="btn btn-primary btn-block">
+        <input id="submit" type="submit" value="Vote" class="btn btn-primary btn-block">
       </form>
+      <a class="twitter-share-button"
+        href="https://twitter.com/intent/tweet">
+        Tweet</a>
+      <br>
     </div>
-    <div class="col-md-8" style="width:500px">
-      <canvas class="text-center" id="myChart" width="400" height="400"></canvas>
+    <div id="chart" class="col-md-8 text-center">
+      <canvas id="myChart" width="400" height="400"></canvas>
     </div>
   </div>
 </div>

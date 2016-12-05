@@ -1,0 +1,112 @@
+
+body {
+  font-family: 'Roboto', sans-serif;
+  color: #214366;
+}
+
+
+.navbar {
+  background-color: #214366;
+  font-size: 18px;
+}
+
+
+.navbar-default .navbar-nav>li>a {
+  color: white;
+}
+
+.navbar-default .navbar-brand {
+  color: #FFBE47;
+  font-family: 'Bungee', cursive;
+  font-size: 38px;
+}
+
+.jumbotron {
+  border: 1px solid #214366;
+}
+
+.jumbotron p {
+  font-size: 24px;
+  text-decoration: underline;
+}
+
+
+/*===LOGIN & SIGN UP*/
+
+.wrapper {
+	margin-top: 80px;
+  margin-bottom: 80px;
+}
+
+.wrapper form h2 {
+  color: #214366;
+}
+
+.wrapper .btn-lg {
+  background-color: #214366;
+  color: #FFBE47;
+}
+
+.form-signin {
+  max-width: 380px;
+  padding: 15px 35px 45px;
+  margin: 0 auto;
+  background-color: #fff;
+  border: 3px solid #214366;
+	}
+
+	.form-control {
+	  position: relative;
+	  font-size: 16px;
+	  height: auto;
+	  padding: 10px;
+		@include box-sizing(border-box);
+
+		&:focus {
+		  z-index: 2;
+		}
+	}
+
+	input[type="text"] {
+	  margin-bottom: -1px;
+	  border-bottom-left-radius: 0;
+	  border-bottom-right-radius: 0;
+	}
+
+	input[type="password"] {
+	  margin-bottom: 20px;
+	  border-top-left-radius: 0;
+	  border-top-right-radius: 0;
+	}
+}
+
+/*======VOTE && CHART========*/
+
+#chart {
+   max-width:500px;
+   margin:4%;
+   margin-left: 100px;
+}
+
+/*========PANELS=========*/
+
+.panel-default {
+  border: 3px solid #214366;
+}
+.panel-heading {
+  background-color: #FFBE47 !important;
+}
+
+.panel-heading a {
+  font-size: 18px;
+  font-weight: bold;
+  color: #214366;
+
+}
+
+/*=======POLL=========*/
+
+#submit {
+  background-color: #214366;
+  color: #FFBE47;
+}

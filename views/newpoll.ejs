@@ -1,14 +1,16 @@
 <% include _header %>
 
-<h1>New Poll</h1>
+<div class="jumbotron" style="max-width: 760px; margin: 0 auto;">
+  <h2 class="text-center"><u>New Poll</u></h2>
 
-<form action="/newpoll" method="post">
-  <input name="title" type="text" class="form-control" placeholder="Poll" required autofocus>
-  <br>
-  <h4>For each Option use a new line </h4>
-  <textarea class="form-control" name="option" rows="5" id="TITLE" required></textarea>
-  <br>
-  <input type="submit" value="Create" class="btn btn-primary btn-block">
-</form>
-
+  <form action="/newpoll" method="post">
+    <h4>Title:</h4>
+    <input name="title" type="text" class="form-control" placeholder="Poll" required autofocus>
+    <br>
+    <h4>Options (seperated by line):</h4>
+    <textarea class="form-control" name="option" rows="5" id="TITLE" required></textarea>
+    <br>
+    <input id="submit" type="submit" value="Create" class="btn btn-primary btn-block btn-lg">
+  </form>
+</div>
 <% include _footer %>
